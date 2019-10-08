@@ -40,6 +40,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public int numEdges() {
+        //for
         return 0;
     }
 
@@ -71,6 +72,10 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public void addEdge(V u, V v) {
+        if (!map.containsKey(u) || !map.containsKey(v)) {
+            throw new IllegalArgumentException("No edge present");
+        }
+        map.get(u).add(v);
 
     }
 
@@ -94,8 +99,10 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public List<V> getNeighbors(V v){
-        List<V> list = new ArrayList<V>();
-        return list;
+        if (!map.containsKey(v)) {
+            throw new IllegalArgumentException("No vertex present");
+        }
+        return map.get(v);
     }
 
     /**
