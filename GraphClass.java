@@ -10,7 +10,7 @@ import java.util.HashSet;
 
 public class GraphClass<V> implements GraphIfc<V> {
 	
-	ArrayList<Set<Integer>> list = new ArrayList<Set<Integer>>();
+	Set<ArrayList<V>> set = new HashSet<ArrayList<V>>();
 
     /**
      * Returns the number of vertices in the graph
@@ -44,8 +44,8 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
-    	Set<Integer> set = new HashSet<Integer>();
-    	list.add(set);
+    	ArrayList<V> list = new ArrayList<V>();
+    	set.add(list);
     }
 
     /**
