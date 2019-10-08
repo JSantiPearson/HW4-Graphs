@@ -1,7 +1,9 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * @author Jordan Pearson and Thalia Barr-Malec
@@ -9,6 +11,19 @@ import java.util.HashSet;
 */
 
 public class GraphClass<V> implements GraphIfc<V> {
+	
+	HashMap<V, ArrayList<V>> map = new HashMap<V, ArrayList<V>>();
+	Set<V> set = new HashSet<V>();
+	
+	public static void main(String [] args) {
+		GraphClass<String> graph = new GraphClass<String>();
+		graph.addVertex("A");
+		graph.addVertex("B");
+		graph.addVertex("C");
+		graph.addVertex("D");
+		graph.addVertex("E");
+		System.out.println(graph.toString());
+	}
 
     /**
      * Returns the number of vertices in the graph
@@ -16,7 +31,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public int numVertices() {
-        return 0;
+        return set.size();
     }
 
     /**
@@ -33,7 +48,8 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void clear(){
-
+    	map.clear();
+    	set.clear();
     }
 
     /**
@@ -42,7 +58,9 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
-
+    	ArrayList<V> list = new ArrayList<V>();
+    	map.put(v, list);
+    	set.add(v);
     }
 
     /**
@@ -62,8 +80,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public Set<V> getVertices() {
-        Set<V> hashSet = new HashSet<V>();
-        return hashSet;
+        return set;
     }
 
     /**
@@ -90,7 +107,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public boolean containsVertex(V v) {
-        return true;
+        return set.contains(v);
     }
 
     /**
@@ -125,6 +142,14 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public String toString() {
-        return "";
+        String str = "";
+        Iterator<V> iterator = set.iterator();
+        
+        while (iterator.hasNext()) {
+        	V v = iterator.next();
+        	str += "" + v + ": " + map.get(v) + "\n";
+        }
+        
+        return str;
     }
 }
