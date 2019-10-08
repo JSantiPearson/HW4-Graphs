@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -10,7 +11,8 @@ import java.util.HashSet;
 
 public class GraphClass<V> implements GraphIfc<V> {
 	
-	Set<ArrayList<V>> set = new HashSet<ArrayList<V>>();
+	HashMap<V, ArrayList<V>> map = new HashMap<V, ArrayList<V>>();
+	Set<V> set = new HashSet<V>();
 
     /**
      * Returns the number of vertices in the graph
@@ -18,7 +20,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public int numVertices() {
-        return 0;
+        return set.size();
     }
 
     /**
@@ -35,7 +37,8 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void clear(){
-
+    	map.clear();
+    	set.clear();
     }
 
     /**
@@ -45,7 +48,8 @@ public class GraphClass<V> implements GraphIfc<V> {
     //Jordan
     public void addVertex(V v) {
     	ArrayList<V> list = new ArrayList<V>();
-    	set.add(list);
+    	map.put(v, list);
+    	set.add(v);
     }
 
     /**
@@ -65,8 +69,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public Set<V> getVertices() {
-        Set<V> hashSet = new HashSet<V>();
-        return hashSet;
+        return set;
     }
 
     /**
@@ -93,7 +96,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public boolean containsVertex(V v) {
-        return true;
+        return set.contains(v);
     }
 
     /**
