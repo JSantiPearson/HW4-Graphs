@@ -22,7 +22,26 @@ public class GraphClass<V> implements GraphIfc<V> {
 		graph.addVertex("C");
 		graph.addVertex("D");
 		graph.addVertex("E");
+		
+		graph.addEdge("A", "C");
+		graph.addEdge("A", "E");
+		graph.addEdge("B", "D");
+		graph.addEdge("C", "D");
+		graph.addEdge("D", "A");
+		graph.addEdge("D", "E");
+		
 		System.out.println(graph.toString());
+		System.out.println("Number of vertices: " + graph.numVertices());
+		System.out.println("Number of edges: " + graph.numEdges());
+		System.out.println("Get vertices: " + graph.getVertices());
+		System.out.println("Get neighbors of D: " + graph.getNeighbors("D"));
+		System.out.println("Contains vertex A: " + graph.containsVertex("A"));
+		System.out.println("Contains vertex F: " + graph.containsVertex("F"));
+		System.out.println("Contains edge A -> C: " + graph.edgeExists("A", "C"));
+		System.out.println("Contains edge C -> A: " + graph.edgeExists("C", "A"));
+		
+		System.out.println(graph.toString());
+		
 	}
 
     /**
@@ -59,6 +78,9 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
+    	if (set.contains(v)) {
+    		throw new AssertionError("Vertex already exists.");
+    	}
     	ArrayList<V> list = new ArrayList<V>();
     	map.put(v, list);
     	set.add(v);
@@ -76,7 +98,6 @@ public class GraphClass<V> implements GraphIfc<V> {
             throw new IllegalArgumentException("No edge present");
         }
         map.get(u).add(v);
-
     }
 
     /**
