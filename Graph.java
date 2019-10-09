@@ -8,52 +8,44 @@ import java.util.Iterator;
 
 /**
  * @author Jordan Pearson and Thalia Barr-Malec
- * @version Date
- */
+ * @version 10-9-19
+*/
 
-public class GraphClass<V> implements GraphIfc<V> {
-
+public class Graph<V> implements GraphIfc<V> {
 	
 	HashMap<V, ArrayList<V>> map = new HashMap<V, ArrayList<V>>();
 	Set<V> set = new HashSet<V>();
 	
 	public static void main(String [] args) {
-		GraphClass<String> graph = new GraphClass<String>();
+		Graph<String> graph = new Graph<String>();
 		graph.addVertex("A");
 		graph.addVertex("B");
 		graph.addVertex("C");
 		graph.addVertex("D");
 		graph.addVertex("E");
-		
-		graph.addEdge("A", "C");
-		graph.addEdge("A", "E");
-		graph.addEdge("B", "D");
-		graph.addEdge("C", "D");
-		graph.addEdge("D", "A");
-		graph.addEdge("D", "E");
 		graph.addEdge("A","B");
-
-    graph.addEdge("A","C");
-    graph.addEdge("E","D");
-    System.out.println(graph.degree("A"));
-    System.out.println(graph.numEdges());
-    System.out.println(graph.getNeighbors("A"));
-    System.out.println(graph.edgeExists("E","D"));
-    System.out.println(graph.edgeExists("D","E"));
-		System.out.println(graph.toString());
-		System.out.println("Number of vertices: " + graph.numVertices());
-		System.out.println("Number of edges: " + graph.numEdges());
-		System.out.println("Get vertices: " + graph.getVertices());
-		System.out.println("Get neighbors of D: " + graph.getNeighbors("D"));
-		System.out.println("Contains vertex A: " + graph.containsVertex("A"));
-		System.out.println("Contains vertex F: " + graph.containsVertex("F"));
-		System.out.println("Contains edge A -> C: " + graph.edgeExists("A", "C"));
-		System.out.println("Contains edge C -> A: " + graph.edgeExists("C", "A"));
-		
-		System.out.println(graph.toString());
-		
+        graph.addEdge("A","C");
+        graph.addEdge("B","C");
+        graph.addEdge("B","E");
+        graph.addEdge("D","A");
+        graph.addEdge("D","B");
+        graph.addEdge("D","E");
+        System.out.println("Graph:\n"+graph.toString());
+        System.out.println("Number of vertices: "+graph.numVertices());
+        System.out.println("Number of edges: "+graph.numEdges());
+        System.out.println("Set of vertices: "+graph.getVertices());
+        System.out.println("Get neighbors of A: "+graph.getNeighbors("A"));
+        System.out.println("Contains vertex A: "+graph.containsVertex("A"));
+        System.out.println("Contains vertex F: "+graph.containsVertex("F"));
+        System.out.println("Edge exists from E to D: "+graph.edgeExists("E","D"));
+        System.out.println("Edge exists from D to E: "+graph.edgeExists("D","E"));
+        System.out.println("Degree of A: "+graph.degree("A"));
+        graph.clear();
+        System.out.println("Graph cleared.\nAdded one vertex A.");
+        graph.addVertex("A");
+        System.out.println("New graph:\n"+graph.toString());
+        
 	}
-
 
     /**
      * Returns the number of vertices in the graph
@@ -71,7 +63,7 @@ public class GraphClass<V> implements GraphIfc<V> {
     //Thalia
     public int numEdges() {
         int totalEdges = 0;
-        for (Map.Entry<V,ArrayList<V> > entry : map.entrySet()) { // loop through and count the number of edges at each vertex
+        for (Map.Entry<V,ArrayList<V> > entry : map.entrySet()) {
             totalEdges += entry.getValue().size();
         }
         return totalEdges;
@@ -82,8 +74,8 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void clear(){
-        map.clear();
-        set.clear();
+    	map.clear();
+    	set.clear();
     }
 
     /**
@@ -92,14 +84,12 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
-
     	if (set.contains(v)) {
-    		throw new AssertionError("Vertex already exists.");
+    		throw new AssertionError("Vertex already exists in the graph!");
     	}
     	ArrayList<V> list = new ArrayList<V>();
     	map.put(v, list);
     	set.add(v);
-
     }
 
     /**
@@ -111,10 +101,7 @@ public class GraphClass<V> implements GraphIfc<V> {
     //Thalia
     public void addEdge(V u, V v) {
         if (!map.containsKey(u) || !map.containsKey(v)) {
-            throw new IllegalArgumentException("At least one of the vertices does not exist");
-        }
-        if (edgeExists(u, v)) { // if the edge already exists, do nothing
-            return;
+            throw new IllegalArgumentException("No edge present");
         }
         map.get(u).add(v);
     }
@@ -170,14 +157,8 @@ public class GraphClass<V> implements GraphIfc<V> {
         if (!map.containsKey(u) || !map.containsKey(v)) {
             throw new IllegalArgumentException("No edge present");
         }
-        ArrayList<V> nodes = map.get(v); // get the list of edges for the given vertex
-        for(Object node : nodes) { // loop through and return true if the vertex at the index equals the given vertex
-            if (node.equals(u)) {
-                return true;
-            }
-        }
-
-        return false; // otherwise return false
+        ArrayList<V> nodes = map.get(v);
+        return nodes.contains(u);
     }
 
     /**
@@ -189,11 +170,11 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public int degree(V v) {
-        if (!map.containsKey(v)) {
-            throw new IllegalArgumentException("No vertex present");
+        if (!set.contains(v)) {
+        	throw new IllegalArgumentException("Vertex does not occur in the graph.");
         }
-        return map.get(v).size(); // return the size of the list at the given vertex
-
+    	return map.get(v).size();
+    	//Whipped this up just for testing purposes, feel free to change it -Jordan
     }
 
     /**
@@ -205,12 +186,12 @@ public class GraphClass<V> implements GraphIfc<V> {
     public String toString() {
         String str = "";
         Iterator<V> iterator = set.iterator();
-
+        
         while (iterator.hasNext()) {
-            V v = iterator.next();
-            str += "" + v + ": " + map.get(v) + "\n";
+        	V v = iterator.next();
+        	str += "" + v + ": " + map.get(v) + "\n";
         }
-
+        
         return str;
     }
 }
