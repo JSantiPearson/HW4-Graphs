@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
@@ -22,6 +23,13 @@ public class GraphClass<V> implements GraphIfc<V> {
 		graph.addVertex("C");
 		graph.addVertex("D");
 		graph.addVertex("E");
+		graph.addEdge("A","B");
+        graph.addEdge("A","C");
+        graph.addEdge("E","D");
+        System.out.println(graph.numEdges());
+        System.out.println(graph.getNeighbors("A"));
+        System.out.println(graph.edgeExists("E","D"));
+        System.out.println(graph.edgeExists("D","E"));
 		System.out.println(graph.toString());
 	}
 
@@ -40,8 +48,11 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public int numEdges() {
-        //for
-        return 0;
+        int totalEdges = 0;
+        for (Map.Entry<V,ArrayList<V> > entry : map.entrySet()) {
+            totalEdges += entry.getValue().size();
+        }
+        return totalEdges;
     }
 
     /**
@@ -127,7 +138,21 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public boolean edgeExists(V v, V u) {
-        return true;
+        if (!map.containsKey(u) || !map.containsKey(v)) {
+            throw new IllegalArgumentException("No edge present");
+        }
+        ArrayList<V> nodes = map.get(v);
+        for(Object node : nodes) {
+            if (node.equals(u)) {
+                return true;
+            }
+        }
+        /**for(int i = 0; i < nodes.size(); i++) {
+            if (nodes.get(i).equals(u)) {
+                return true;
+            }
+        } */
+        return false;
     }
 
     /**
