@@ -9,9 +9,10 @@ import java.util.Iterator;
 /**
  * @author Jordan Pearson and Thalia Barr-Malec
  * @version Date
-*/
+ */
 
 public class GraphClass<V> implements GraphIfc<V> {
+
 	
 	HashMap<V, ArrayList<V>> map = new HashMap<V, ArrayList<V>>();
 	Set<V> set = new HashSet<V>();
@@ -31,13 +32,14 @@ public class GraphClass<V> implements GraphIfc<V> {
 		graph.addEdge("D", "A");
 		graph.addEdge("D", "E");
 		graph.addEdge("A","B");
-        graph.addEdge("A","C");
-        graph.addEdge("E","D");
-        System.out.println(graph.degree("A"));
-        System.out.println(graph.numEdges());
-        System.out.println(graph.getNeighbors("A"));
-        System.out.println(graph.edgeExists("E","D"));
-        System.out.println(graph.edgeExists("D","E"));
+
+    graph.addEdge("A","C");
+    graph.addEdge("E","D");
+    System.out.println(graph.degree("A"));
+    System.out.println(graph.numEdges());
+    System.out.println(graph.getNeighbors("A"));
+    System.out.println(graph.edgeExists("E","D"));
+    System.out.println(graph.edgeExists("D","E"));
 		System.out.println(graph.toString());
 		System.out.println("Number of vertices: " + graph.numVertices());
 		System.out.println("Number of edges: " + graph.numEdges());
@@ -51,6 +53,7 @@ public class GraphClass<V> implements GraphIfc<V> {
 		System.out.println(graph.toString());
 		
 	}
+
 
     /**
      * Returns the number of vertices in the graph
@@ -79,8 +82,8 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void clear(){
-    	map.clear();
-    	set.clear();
+        map.clear();
+        set.clear();
     }
 
     /**
@@ -89,12 +92,14 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
+
     	if (set.contains(v)) {
     		throw new AssertionError("Vertex already exists.");
     	}
     	ArrayList<V> list = new ArrayList<V>();
     	map.put(v, list);
     	set.add(v);
+
     }
 
     /**
@@ -200,12 +205,12 @@ public class GraphClass<V> implements GraphIfc<V> {
     public String toString() {
         String str = "";
         Iterator<V> iterator = set.iterator();
-        
+
         while (iterator.hasNext()) {
-        	V v = iterator.next();
-        	str += "" + v + ": " + map.get(v) + "\n";
+            V v = iterator.next();
+            str += "" + v + ": " + map.get(v) + "\n";
         }
-        
+
         return str;
     }
 }
