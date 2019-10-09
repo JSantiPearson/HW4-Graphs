@@ -75,6 +75,9 @@ public class GraphClass<V> implements GraphIfc<V> {
         if (!map.containsKey(u) || !map.containsKey(v)) {
             throw new IllegalArgumentException("No edge present");
         }
+        if (edgeExists(u, v)) {
+            return;
+        }
         map.get(u).add(v);
 
     }
@@ -139,7 +142,11 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public int degree(V v) {
-        return 0;
+        if (!map.containsKey(v)) {
+            throw new IllegalArgumentException("No vertex present");
+        }
+        return map.get(v).size();
+
     }
 
     /**
