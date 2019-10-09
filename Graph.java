@@ -11,28 +11,18 @@ import java.util.Iterator;
  * @version Date
 */
 
-public class GraphClass<V> implements GraphIfc<V> {
+public class Graph<V> implements GraphIfc<V> {
 	
 	HashMap<V, ArrayList<V>> map = new HashMap<V, ArrayList<V>>();
 	Set<V> set = new HashSet<V>();
 	
 	public static void main(String [] args) {
-		GraphClass<String> graph = new GraphClass<String>();
+		Graph<String> graph = new Graph<String>();
 		graph.addVertex("A");
 		graph.addVertex("B");
 		graph.addVertex("C");
 		graph.addVertex("D");
 		graph.addVertex("E");
-<<<<<<< HEAD
-		
-		graph.addEdge("A", "C");
-		graph.addEdge("A", "E");
-		graph.addEdge("B", "D");
-		graph.addEdge("C", "D");
-		graph.addEdge("D", "A");
-		graph.addEdge("D", "E");
-		
-=======
 		graph.addEdge("A","B");
         graph.addEdge("A","C");
         graph.addEdge("E","D");
@@ -40,19 +30,7 @@ public class GraphClass<V> implements GraphIfc<V> {
         System.out.println(graph.getNeighbors("A"));
         System.out.println(graph.edgeExists("E","D"));
         System.out.println(graph.edgeExists("D","E"));
->>>>>>> ed0652ba1fbdd2592c05e5bd150d6210ecc1ad62
 		System.out.println(graph.toString());
-		System.out.println("Number of vertices: " + graph.numVertices());
-		System.out.println("Number of edges: " + graph.numEdges());
-		System.out.println("Get vertices: " + graph.getVertices());
-		System.out.println("Get neighbors of D: " + graph.getNeighbors("D"));
-		System.out.println("Contains vertex A: " + graph.containsVertex("A"));
-		System.out.println("Contains vertex F: " + graph.containsVertex("F"));
-		System.out.println("Contains edge A -> C: " + graph.edgeExists("A", "C"));
-		System.out.println("Contains edge C -> A: " + graph.edgeExists("C", "A"));
-		
-		System.out.println(graph.toString());
-		
 	}
 
     /**
@@ -92,9 +70,6 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Jordan
     public void addVertex(V v) {
-    	if (set.contains(v)) {
-    		throw new AssertionError("Vertex already exists.");
-    	}
     	ArrayList<V> list = new ArrayList<V>();
     	map.put(v, list);
     	set.add(v);
@@ -111,10 +86,8 @@ public class GraphClass<V> implements GraphIfc<V> {
         if (!map.containsKey(u) || !map.containsKey(v)) {
             throw new IllegalArgumentException("No edge present");
         }
-        if (edgeExists(u, v)) {
-            return;
-        }
         map.get(u).add(v);
+
     }
 
     /**
@@ -191,11 +164,7 @@ public class GraphClass<V> implements GraphIfc<V> {
      */
     //Thalia
     public int degree(V v) {
-        if (!map.containsKey(v)) {
-            throw new IllegalArgumentException("No vertex present");
-        }
-        return map.get(v).size();
-
+        return 0;
     }
 
     /**
