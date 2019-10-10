@@ -85,7 +85,7 @@ public class Graph<V> implements GraphIfc<V> {
     //Jordan
     public void addVertex(V v) {
     	if (set.contains(v)) {
-    		throw new AssertionError("Vertex already exists in the graph!");
+    		return;
     	}
     	ArrayList<V> list = new ArrayList<V>();
     	map.put(v, list);
@@ -174,7 +174,6 @@ public class Graph<V> implements GraphIfc<V> {
         	throw new IllegalArgumentException("Vertex does not occur in the graph.");
         }
     	return map.get(v).size();
-    	//Whipped this up just for testing purposes, feel free to change it -Jordan
     }
 
     /**
